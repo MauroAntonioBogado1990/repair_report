@@ -1,0 +1,169 @@
+<odoo>
+  <data>
+    <record id="view_repair_report_form" model="ir.ui.view">
+      <field name="name">repair.report.form</field>
+      <field name="model">repair.order</field>
+      <field name="inherit_id" ref="repair.view_repair_order_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//notebook/page[last()]" position="after">
+          <page string="Informe" name="repair_report">
+            <notebook>
+              <!-- 🔍 Solapa 1: Prueba Inicial -->
+              <page string="Prueba Inicial">
+                <group>
+                  <field name="test_before_disassembly"/>
+                   <div attrs="{'invisible': [('test_before_disassembly', '!=', 'yes')]}">
+                    <span style="font-weight: bold;">Parámetro de funcionamiento</span>
+                </div>
+
+                  <field name="test_details" attrs="{'invisible': [('test_before_disassembly', '!=', 'yes')]}"/>
+                  <field name="vacuum_level" attrs="{'invisible': [('test_before_disassembly', '!=', 'yes')]}"/>
+                  <field name="electricity_consumption" attrs="{'invisible': [('test_before_disassembly', '!=', 'yes')]}"/>
+                  <div attrs="{'invisible': [('test_before_disassembly', '!=', 'yes')]}">
+                    <span style="font-weight: bold;">Ruido</span>
+                </div>
+                   <field name="noise_normal" attrs="{'invisible': [('test_before_disassembly', '!=', 'yes')]}"/>
+                  <field name="noise_anormal" attrs="{'invisible': [('test_before_disassembly', '!=', 'yes')]}"/>
+                  <div attrs="{'invisible': [('test_before_disassembly', '!=', 'no')]}">
+                    <span style="font-weight: bold;">Indicar el motivo por el cual no fue posible realizar la prueba</span>
+                </div>
+                 <field name="stuck_engine" attrs="{'invisible': [('test_before_disassembly', '!=', 'no')]}"/>
+                 <field name="stuck_bomb" attrs="{'invisible': [('test_before_disassembly', '!=', 'no')]}"/>
+                 <field name="without_engine" attrs="{'invisible': [('test_before_disassembly', '!=', 'no')]}"/>
+                 <field name="disarmed_bomb" attrs="{'invisible': [('test_before_disassembly', '!=', 'no')]}"/>
+                 <field name="without_components" attrs="{'invisible': [('test_before_disassembly', '!=', 'no')]}"/>
+                 <field name="another" attrs="{'invisible': [('test_before_disassembly', '!=', 'no')]}"/>
+                 <field name="another_text" attrs="{'invisible': ['&amp;', ('another', '!=', False), ('test_before_disassembly', '!=', 'no')]}"/>
+                   
+                </group>
+              </page>
+
+              <!-- 🛠️ Solapa 2: Diagnóstico Técnico -->
+              <page string="Diagnóstico Técnico">
+                <group>
+                  <field name="diagnostic_result"/>
+                  <!-- <field name="diagnostic_notes"
+                         attrs="{'invisible': [('diagnostic_result', '=', False)]}"/> -->
+                   <div>
+                    <span style="font-weight: bold;">¿Se requiere reparación? </span>
+                </div>
+                  <field name="yes_reparation"/>
+                  <field name="reparation_maintenance"/>
+                   <div attrs="{'invisible': [('reparation_maintenance', '!=', True)]}">
+                    <span style="font-weight: bold;">Equipo en buenas condiciones generales se recomienda realizar mantenimiento</span>
+                  </div>
+                  <field name="no_reparation"/>
+                  <field name="post_yes_description"  attrs="{'invisible': [('yes_reparation', '!=', True)]}"/>
+                  <div attrs="{'invisible': [('no_reparation', '!=', True)]}">
+                    <span style="font-weight: bold;">Equipo en muy malas condiciones,no se garantiza funcionamiento optimo, puede presentar falla prematura o deficiencia en el nivel de vacío</span>
+                </div>
+                </group>
+              </page>
+
+              <!-- 🔧 Solapa 3: Acciones Correctivas -->
+              <page string="Acciones Correctivas">
+              
+                <div attrs="{'invisible': [('yes_reparation', '!=', True)]}">
+                    <span style="font-weight: bold;">Acciones a realizar programadas</span>
+                    <group>                   
+                    <field name="complete_disassembly_and_cleaning"/>
+                    <field name="assembly_and_commissioning"/>
+                    <field name="testing_protocol"/>
+                    <field name="painting"/>
+                    </group>
+                    <span style="font-weight: bold;">Repuestos/Materiales/Insumos</span>
+                    <group>
+                    <field name="maintenaice_kit"/>
+                    <field name="motor_bearing"/>
+                    <field name="oil"/>
+                    <field name="gasket_kit"/>
+                    <field name="grinding_of_covers"/>
+                    <field name="actions_other"/>
+                    <field name="text_actiones_other" attrs="{'invisible': [('actions_other', '!=', True)]}" />
+                     
+                    </group>
+                </div>
+                <!--mantenimiento-->
+                 <div attrs="{'invisible': [('reparation_maintenance', '!=', True)]}">
+                    <span style="font-weight: bold;">Acciones a realizar programadas</span>
+                    <group>                   
+                    <field name="internal_crankcase_cleaning"/>
+                    <field name="external_cleaning"/>
+                    <field name="testing_protocol_maintenaice"/>
+                    <field name="painting_mantenaice"/>
+                    </group>
+                    <span style="font-weight: bold;">Repuestos/Materiales/Insumos</span>
+                    <group>
+                    <field name="mist_filters"/>
+                    <field name="oil_filters"/>
+                    <field name="oil_maintenaice"/>
+                    <field name="drag"/>
+                    <field name="aspiration_filter"/>
+                    <field name="valve_gasket"/>
+                    <field name="filter_gasket" />
+                    <field name="filter_material" />
+                     
+                    </group>
+                </div>
+                <!--no reparacion-->
+                 <div attrs="{'invisible': [('no_reparation', '!=', True)]}">
+                    <span style="font-weight: bold;">Acciones a realizar programadas</span>
+                      <group>
+                    <field name="acquisition_of_new_equipment"/>
+                    <field name="actions_other_no_repair"/>
+                    <field name="text_actiones_other_no_repair" attrs="{'invisible': [('actions_other_no_repair', '!=', True)]}" />
+                     </group>
+                     
+                    
+                </div>
+              
+                  <!-- <field name="corrective_actions"
+                         attrs="{'readonly': [('diagnostic_result', '!=', 'motor'), ('diagnostic_result', '!=', 'cableado')]}"/> -->
+               
+              </page>
+
+              <!-- ✅ Solapa 4: Prueba Final -->
+              <page string="Prueba Final">
+              <div >
+                    <span style="font-weight: bold;">1.Datos del motor</span>
+                    <group>                   
+                    <field name="serial_number"/>
+                    <field name="power"/>
+                    <field name="revolution"/>
+                    <field name="voltage"/>
+                    <field name="amperage"/>
+                    <field name="frequency"/>
+                    
+                    
+                    </group>
+                    <span style="font-weight: bold;">2.Resultados de pruebas</span>
+                    <group>
+                    <field name="time"/>
+                    <field name="vacuum_level"/>
+                    <field name="temperature"/>
+                    <field name="normal_noise"/>
+                   
+                     
+                    </group>
+                    <span style="font-weight: bold;">3.Validación Final</span>
+                    <group>
+                    <field name="pump_operational_and_within_parameters"/>
+                    <field name="operational_pum_with_observations"/>
+                    <field name="does_not_meet_parameters"/>
+                    
+                   
+                     
+                    </group>
+                </div>
+                <group>
+                  <field name="final_test_passed"/>
+                  <!-- <field name="final_test_notes"/> -->
+                </group>
+              </page>
+            </notebook>
+          </page>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>
