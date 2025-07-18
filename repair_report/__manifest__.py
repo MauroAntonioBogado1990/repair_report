@@ -8,6 +8,7 @@
     'data': [
         #'security/ir.model.access.csv',
         'views/repair_report.xml',
+        'report/repair_reporte.xml',
     ],
     'installable': True,
     'application': False,

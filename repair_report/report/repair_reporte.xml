@@ -1,0 +1,231 @@
+<odoo>
+<!--reporte que imprime los valores seleccionados-->
+    <template id="report_repair_order_document">
+  <t t-call="web.external_layout">
+    <t t-foreach="docs" t-as="o">
+        <main>
+                    <div class="page">
+                    <h2>Informe de Reparacion</h2>
+                    <h4>Prueba Inicial</h4> 
+                    <h4><strong>Parametro de funcionamiento</strong></h4> 
+                     <t t-if="o.test_details">
+                        <p><strong>Detalles de prueba:</strong> <t t-esc="o.test_details"/></p>
+                    </t>
+                    <t t-if="o.vacuum_level">
+                        <p><strong>Nivel de vacio(Mbar):</strong> <t t-esc="o.vacuum_level"/></p>
+                    </t>
+                    <t t-if="o.electricity_consumption">
+                        <p><strong>Consumo de electrico (Amp):</strong> <t t-esc="o.electricity_consumption"/></p>
+                    </t>
+                    <t t-if="o.noise_normal">
+                        <p><strong>Ruido Normal:</strong> SI</p>
+                    </t>
+                    <t t-if="o.noise_anormal">
+                        <p><strong>Ruido Anormal:</strong> SI</p>
+                    </t>
+                    <t t-if="o.stuck_engine">
+                        <p><strong>Motor Trabado:</strong> SI</p>
+                    </t>
+                    <t t-if="o.stuck_bomb">
+                        <p><strong>Bomba Trabada:</strong> SI</p>
+                    </t>
+                    <t t-if="o.without_engine">
+                        <p><strong>Sin Motor:</strong> SI</p>
+                    </t>
+                    <t t-if="o.disarmed_bomb">
+                        <p><strong>Bomba Desarmada:</strong> SI</p>
+                    </t>
+                    <t t-if="o.without_components">
+                        <p><strong>Sin Componentes:</strong> SI</p>
+                    </t>
+                    <t t-if="o.another_text">
+                        <p><strong>Otros Motivos:</strong> <t t-esc="o.electricity_consumption"/></p>
+                    </t>
+
+                    <!-- ✅ Diagnóstico y Reparaciones -->
+                    <t t-if="o.yes_reparation or o.reparation_maintenance or o.no_reparation">
+                        <h4>Diagnostico Tecnico</h4>
+                        <ul>
+                        <t t-if="o.yes_reparation">
+                            <li>Se requiere reparacion</li>
+                        </t>
+                        <t t-if="o.reparation_maintenance">
+                            <li>Reparacion de mantenimiento recomendada.<br/>
+                            Equipo en buenas condiciones generales se recomienda realizar mantenimiento</li>
+                        </t>
+                        <t t-if="o.no_reparation">
+                            <li>No se recomienda reparacion.<br/>
+                            Equipo en muy malas condiciones,no se garantiza funcionamiento optimo, puede presentar falla prematura o deficiencia en el nivel de vacío</li>
+                        </t>
+                        </ul>
+                    </t>
+
+                    <!-- 🔧 Acciones Correctivas -->
+                    <t t-if="o.yes_reparation or o.reparation_maintenance or o.no_reparation">
+                        <h4>Acciones Correctivas</h4>
+                        <ul>
+                        <t t-if="o.complete_disassembly_and_cleaning">
+                            <li>Desarme completo y limpieza: SI</li>
+                        </t>
+                        <t t-if="o.assembly_and_commissioning">
+                            <li>Montaje y puesta a punto: SI</li>
+                        </t>
+                        <t t-if="o.testing_protocol">
+                            <li>Protocolo de pruebas: SI</li>
+                        </t>
+                        <t t-if="o.painting">
+                            <li>Pintura: SI</li>
+                        </t>
+                        <!-- Añadí otros campos seleccionables aquí como repuestos -->
+                        </ul>
+                        <h4><strong>Repuestos Materiales e Insumos</strong></h4>
+                        <t t-if="o.maintenaice_kit">
+                            <li>Kit de Mantenimiento: SI</li>
+                        </t>
+                        <t t-if="o.motor_bearing">
+                            <li>Rodamiento de motor: SI</li>
+                        </t>
+                        <t t-if="o.oil">
+                            <li>Aceite: SI</li>
+                        </t>
+                        <t t-if="o.gasket_kit">
+                            <li>Kit de Juntas: SI</li>
+                        </t>
+                        <t t-if="o.grinding_of_covers">
+                            <li>Rectificado de tapas: SI</li>
+                        </t>
+                        <t t-if="o.text_actiones_other">
+                            <li>Especificaciones: <t t-esc="o.text_actiones_other"/></li>
+                        </t>
+                        <t t-if="o.internal_crankcase_cleaning">
+                            <li>Limpieza interna de carter: SI</li>
+                        </t>
+                        <t t-if="o.external_cleaning">
+                            <li>Limpieza externa: SI</li>
+                        </t>
+                        <t t-if="o.testing_protocol_maintenaice">
+                            <li>Protocolo de pruebas: SI</li>
+                        </t>
+                        <t t-if="o.painting_mantenaice">
+                            <li>Pintura: SI</li>
+                        </t>
+                        <t t-if="o.reparation_maintenance">
+                            <h4><strong>Repuestos Materiales e Insumos de mantenimiento</strong></h4>
+                        </t>
+                        
+                        <t t-if="o.mist_filters">
+                            <li>Filtros de neblina: SI</li>
+                        </t>
+                        <t t-if="o.oil_filters">
+                            <li>Filtros de aceite: SI</li>
+                        </t>
+                        <t t-if="o.oil_maintenaice">
+                            <li>Aceite: SI</li>
+                        </t>
+                        <t t-if="o.drag">
+                            <li>Arrastre: SI</li>
+                        </t>
+                        <t t-if="o.aspiration_filter">
+                            <li>Filtro de aspiracion: SI</li>
+                        </t>
+                        <t t-if="o.valve_gasket">
+                            <li>Junta de valvula: SI</li>
+                        </t>
+                        <t t-if="o.filter_material">
+                            <li>Material Filtrante: SI</li>
+                        </t>
+                        <t t-if="o.acquisition_of_new_equipment">
+                            <li>Adquisición de nuevo equipo: SI</li>
+                        </t>
+                        <t t-if="o.text_actiones_other_no_repair">
+                            <li>Especificaciones: <t t-esc="o.text_actiones_other_no_repair"/></li>
+                        </t>
+                    
+                    
+                    </t>
+
+                    <!-- ✅ Prueba Final (siempre mostrar completa) -->
+                    <h4>Prueba Final</h4>
+                     <h4><strong>Datos del motor</strong></h4>
+                      
+                    <table class="table table-sm">
+                        <tr>
+                        <td><strong>Motor (Num serie):</strong></td>
+                        <td><t t-esc="o.serial_number"/></td>
+                        </tr>
+                        <tr>
+                        <td><strong>Potencia de motor(KW):</strong></td>
+                        <td><t t-esc="o.power"/></td>
+                        </tr>
+                        <tr>
+                        <td><strong>Revolucion de motor(RPM):</strong></td>
+                        <td><t t-esc="o.revolution"/></td>
+                        </tr>
+                        <tr>
+                        <td><strong>Voltaje de Motor(V):</strong></td>
+                        <td><t t-esc="o.voltage"/></td>
+                        </tr>
+                        <tr>
+                        <td><strong>Amperaje de Motor(A):</strong></td>
+                        <td><t t-esc="o.amperage"/></td>
+                        </tr>
+                        <tr>
+                        <td><strong>Frecuencia de Motor(Hz):</strong></td>
+                        <td><t t-esc="o.frequency"/></td>
+                        </tr>
+                        <tr>
+                        <td><strong>Tiempo de reparacion(minutos):</strong></td>
+                        <td><t t-esc="o.time"/></td>
+                        </tr>
+                        <tr>
+                        <td><strong>Nivel de vacio(mbar):</strong></td>
+                        <td><t t-esc="o.vacuum_level_motor"/></td>
+                        </tr>
+                         <tr>
+                        <td><strong>Temperatura(C):</strong></td>
+                        <td><t t-esc="o.temperature"/></td>
+                        </tr>
+                         <tr>
+                        <td><strong>Notas del diagnostico:</strong></td>
+                        <td><t t-esc="o.diagnostic_notes"/></td>
+                        </tr>
+                        <tr>
+                        <td><strong>Ruido:</strong></td>
+                        <td><t t-esc="'SI' if o.normal_noise else 'No'"/></td>
+                        </tr>
+
+                        <tr>
+                        <td><strong>Bomba operativa y dentro de parámetros:</strong></td>
+                        <td><t t-esc="'SI' if o.pump_operational_and_within_parameters else 'NO'"/></td>
+                        </tr>
+                        <tr>
+                        <td><strong>Bomba operativa con observaciones:</strong></td>
+                        <td><t t-esc="'SI' if o.operational_pum_with_observations else 'NO'"/></td>
+                        </tr>
+                        <tr>
+                        <td><strong>No cumple con los parametros:</strong></td>
+                        <td><t t-esc="'No cumple' if o.does_not_meet_parameters else 'SI CUMPLE'"/></td>
+                        </tr>
+                         <tr>
+                        <td><strong>Acciones correctivas:</strong></td>
+                        <td><t t-esc="o.corrective_actions"/></td>
+                        </tr>
+                        
+                        
+                        
+                    </table>
+                    </div>
+        </main>
+    </t>
+  </t>
+</template>
+    <report
+      id="action_report_repair_order_document"
+      model="repair.order"
+      string="Informe de Reparación"
+      report_type="qweb-pdf"
+      name="repair_report.report_repair_order_document"
+      file="repair_report.report_repair_order_document"
+      />
+
+</odoo>

@@ -1,6 +1,6 @@
 from odoo import models, fields, api
 import logging
-
+from datetime import datetime, timedelta
 _logger = logging.getLogger(__name__)
 
 class RepairReport(models.Model):
@@ -65,9 +65,22 @@ class RepairReport(models.Model):
     acquisition_of_new_equipment = fields.Boolean(string="Adquisición de nuevo equipo")
     actions_other_no_repair = fields.Boolean(string="Otros")
     text_actiones_other_no_repair = fields.Text(string="Especificar")
-    
+    ##############
+    #datos del motor
+    serial_number = fields.Char(string="Número de serie del motor")
+    power = fields.Char(string="Potencia del motor(KW)")
+    revolution = fields.Char(string="Revoluciones del motor(RPM)")
+    voltage = fields.Char(string="Voltaje del motor(V)")
+    amperage = fields.Char(string="Amperaje del motor(A)")
+    frequency = fields.Char(string="Frecuencia del motor(Hz)")
+    time = fields.Float(string="Tiempo de reparación (minutos)")
+    vacuum_level_motor = fields.Char(string="Nivel de vacío (mbar)")
+    temperature = fields.Char(string="Temperatura (°C)")
     diagnostic_notes = fields.Text(string="Notas del diagnóstico")
-
+    normal_noise = fields.Boolean(string="Ruido normal")
+    pump_operational_and_within_parameters = fields.Boolean(string="Bomba operativa y dentro de parámetros")
+    operational_pum_with_observations = fields.Boolean(string="Bomba operativa con observaciones")
+    does_not_meet_parameters = fields.Boolean(string="No cumple con los parámetros")
     corrective_actions = fields.Text(string="Acciones correctivas")
 
     @api.onchange('diagnostic_result')

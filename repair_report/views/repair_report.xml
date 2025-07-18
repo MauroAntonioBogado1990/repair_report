@@ -41,7 +41,7 @@
               <!-- 🛠️ Solapa 2: Diagnóstico Técnico -->
               <page string="Diagnóstico Técnico">
                 <group>
-                  <field name="diagnostic_result"/>
+                  <!-- <field name="diagnostic_result"/> -->
                   <!-- <field name="diagnostic_notes"
                          attrs="{'invisible': [('diagnostic_result', '=', False)]}"/> -->
                    <div>
@@ -124,9 +124,40 @@
 
               <!-- ✅ Solapa 4: Prueba Final -->
               <page string="Prueba Final">
+              <div >
+                    <span style="font-weight: bold;">1.Datos del motor</span>
+                    <group>                   
+                    <field name="serial_number"/>
+                    <field name="power"/>
+                    <field name="revolution"/>
+                    <field name="voltage"/>
+                    <field name="amperage"/>
+                    <field name="frequency"/>
+                    
+                    
+                    </group>
+                    <span style="font-weight: bold;">2.Resultados de pruebas</span>
+                    <group>
+                    <field name="time"/>
+                    <field name="vacuum_level_motor"/>
+                    <field name="temperature"/>
+                    <field name="normal_noise"/>
+                   
+                     
+                    </group>
+                    <span style="font-weight: bold;">3.Validación Final</span>
+                    <group>
+                    <field name="pump_operational_and_within_parameters"/>
+                    <field name="operational_pum_with_observations"/>
+                    <field name="does_not_meet_parameters"/>
+                    
+                   
+                     
+                    </group>
+                </div>
                 <group>
                   <field name="final_test_passed"/>
-                  <field name="final_test_notes"/>
+                  <!-- <field name="final_test_notes"/> -->
                 </group>
               </page>
             </notebook>
@@ -134,5 +165,8 @@
         </xpath>
       </field>
     </record>
+
+
+    
   </data>
 </odoo>
